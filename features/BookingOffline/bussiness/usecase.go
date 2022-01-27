@@ -28,3 +28,10 @@ func (booku *bookingOfflineUseCase) MemberBookingOffline(userID int, classID int
 	}
 	return nil
 }
+func (booku *bookingOfflineUseCase) GetBookingByID(id int) (bookingOffline.OfflineClassUser, error) {
+	BookingData, err := booku.bData.SelectBookingByID(id)
+	if err != nil {
+		return bookingOffline.OfflineClassUser{}, err
+	}
+	return BookingData, nil
+}

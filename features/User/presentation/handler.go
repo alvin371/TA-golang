@@ -123,6 +123,7 @@ func (usrHandler *UserHandler) LoginAdminHandler(e echo.Context) error {
 }
 
 func (usrHandler *UserHandler) UpdateAccountHandler(e echo.Context) error {
+	newAccount := req.User{}
 	id, err := strconv.Atoi(e.Param("id"))
 	// fmt.Println("Test : ", id)
 	if err != nil {
@@ -130,8 +131,13 @@ func (usrHandler *UserHandler) UpdateAccountHandler(e echo.Context) error {
 			"message": err.Error(),
 		})
 	}
-
-	data, err := usrHandler.userBussiness.EditUser(id)
+	if err := e.Bind(&newAccount); err != nil {
+		return e.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+	fmt.Println(newAccount)
+	data, err := usrHandler.userBussiness.EditUser(id, newAccount.ToUserCore())
 	if err != nil {
 		return e.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"message": err.Error(),

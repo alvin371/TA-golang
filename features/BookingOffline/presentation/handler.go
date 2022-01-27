@@ -6,6 +6,7 @@ import (
 	presentation_request "capstone/backend/features/bookingOffline/presentation/req"
 	"fmt"
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
@@ -52,5 +53,26 @@ func (boh *BookingOfflineHandler) InsertMemberBookingOffline(e echo.Context) err
 	return e.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Success",
 		"data":    newBookingOffline,
+	})
+}
+
+func (boh *BookingOfflineHandler) SelectBookingByClassID(e echo.Context) error {
+	id, err := strconv.Atoi(e.Param("id"))
+	// fmt.Println("Isi ID : ", id)
+	if err != nil {
+		return e.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+
+	data, err := boh.bookingOfflineBussiness.GetBookingByID(id)
+	if err != nil {
+		return e.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+	return e.JSON(http.StatusOK, map[string]interface{}{
+		"message": "Success",
+		"data":    presentation_response.ToBookingOfflineCore(data),
 	})
 }

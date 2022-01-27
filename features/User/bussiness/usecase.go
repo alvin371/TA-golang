@@ -40,8 +40,8 @@ func (ub *UserBussiness) CreateUser(data user.User) (err error) {
 	}
 	return nil
 }
-func (ub *UserBussiness) EditUser(id int) (usr user.User, err error) {
-	userData, err := ub.userData.UpdateUser(id)
+func (ub *UserBussiness) EditUser(id int, data user.User) (usr user.User, err error) {
+	userData, err := ub.userData.UpdateUser(id, data)
 
 	if err != nil {
 		return user.User{}, err

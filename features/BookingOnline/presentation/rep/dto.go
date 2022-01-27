@@ -7,8 +7,8 @@ import (
 
 type OnlineClassUser struct {
 	ID        int
-	ClassID   int
-	UserID    int
+	ClassID   int `json:"class_id"`
+	UserID    int `json:"user_id"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	Class     OnlineClassResponse
@@ -17,24 +17,22 @@ type OnlineClassUser struct {
 
 type OnlineClassResponse struct {
 	ID      int
-	Name    string
-	Day     string
-	Date    string
-	Link    string
-	Time    string
-	Trainer string
-	Image   string
+	Name    string `json:"name"`
+	Day     string `json:"day"`
+	Date    string `json:"date"`
+	Link    string `json:"link"`
+	Time    string `json:"time"`
+	Trainer string `json:"trainer"`
+	Image   string `json:"image"`
 }
 type UserResponse struct {
 	ID           uint
-	Username     string
-	Role         string
-	Email        string
-	Password     string
-	Token        string
-	Avatar       string
-	Goals        string
-	MemberStatus string
+	Username     string `json:"username"`
+	Role         string `json:"role"`
+	Email        string `json:"email"`
+	Avatar       string `json:"avatar"`
+	Goals        string `json:"goals"`
+	MemberStatus string `json:"member_status"`
 }
 
 func ToUserResponse(data bookingOnline.User) UserResponse {
@@ -43,8 +41,6 @@ func ToUserResponse(data bookingOnline.User) UserResponse {
 		Username:     data.Username,
 		Role:         data.Role,
 		Email:        data.Email,
-		Password:     data.Password,
-		Token:        data.Token,
 		Avatar:       data.Avatar,
 		Goals:        data.Goals,
 		MemberStatus: data.MemberStatus,

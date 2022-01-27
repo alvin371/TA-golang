@@ -96,8 +96,8 @@ func (ud *UserData) CheckAccountAdmin(data user.User) (user.User, error) {
 	return toUserCore(userAuth), nil
 }
 
-func (ud *UserData) UpdateUser(id int) (user.User, error) {
-	var users User
+func (ud *UserData) UpdateUser(id int, data user.User) (user.User, error) {
+	users := fromCore(data)
 	fmt.Println("Isi single Users : ", users)
 	fmt.Println("id : ", id)
 	err := ud.DB.Model(&users).Where("id=?", id).Updates(&users).Error

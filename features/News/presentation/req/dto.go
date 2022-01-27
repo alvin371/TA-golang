@@ -5,11 +5,11 @@ import (
 )
 
 type News struct {
-	Title       string `json: "title" param:"title"`
-	Description string `json: "description" param:"description"`
-	Content     string `json: "content" param:"content"`
-	CreatorName string `json: "creator_name" param:"creator_name"`
-	Picture     string `json: "picture" param:"picture"`
+	Title       string `json:"title" param:"title"`
+	Description string `json:"description" param:"description"`
+	Content     string `json:"content" param:"content"`
+	CreatorName string `json:"creator_name" param:"creator_name"`
+	Picture     string `json:"picture" param:"picture"`
 }
 
 func FromCore(core News) news.NewsCore {

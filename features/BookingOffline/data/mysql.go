@@ -2,6 +2,7 @@ package data
 
 import (
 	"capstone/backend/features/bookingOffline"
+	"fmt"
 
 	"gorm.io/gorm"
 )
@@ -35,4 +36,20 @@ func (book *mysqlBookingOfflineClassRepo) InsertMemberBookingOffline(userID int,
 		return err
 	}
 	return nil
+}
+
+func (book *mysqlBookingOfflineClassRepo) SelectBookingByID(id int) (bookingOffline.OfflineClassUser, error) {
+	var bookingData OfflineClassUser
+
+	err := book.Conn.Where("class_id = ?", id).Error
+	fmt.Println(book.Conn.Where("class_id = ?", id))
+	if bookingData.ClassID == 0 {
+		return bookingOffline.OfflineClassUser{}, err
+	}
+
+	if err != nil {
+		return bookingOffline.OfflineClassUser{}, err
+	}
+
+	return ToBookingOfflineCore(bookingData), nil
 }

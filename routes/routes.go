@@ -53,6 +53,7 @@ func New() *echo.Echo {
 	// Booking Offline
 	jwt.GET("/booking-offline", presenter.BookingOfflinePresentation.GetListBookingOffline)
 	e.POST("/booking-offline/create", presenter.BookingOfflinePresentation.InsertMemberBookingOffline)
+	jwt.GET("/booking-offline/:id", presenter.BookingOfflinePresentation.SelectBookingByClassID)
 
 	// Booking Online
 

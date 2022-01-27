@@ -40,10 +40,12 @@ type User struct {
 
 type Bussiness interface {
 	GetListBookingOffline(OfflineClassUser) (list []OfflineClassUser, err error)
+	GetBookingByID(id int) (OfflineClassUser, error)
 	MemberBookingOffline(userID int, classID int) (err error)
 }
 
 type Data interface {
 	SelectAllBookingOffline(OfflineClassUser) (list []OfflineClassUser, err error)
+	SelectBookingByID(id int) (OfflineClassUser, error)
 	InsertMemberBookingOffline(userID int, classID int) (err error)
 }
