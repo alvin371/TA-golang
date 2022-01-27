@@ -3,6 +3,7 @@ package rep
 import "capstone/backend/features/onlineClass"
 
 type OnlineClassCore struct {
+	ID      int    `json:"id"`
 	Name    string `json:"name"`
 	Day     string `json:"day"`
 	Date    string `json:"date"`
@@ -14,6 +15,7 @@ type OnlineClassCore struct {
 
 func ToCore(req onlineClass.OnlineClassCore) OnlineClassCore {
 	return OnlineClassCore{
+		ID:      req.ID,
 		Name:    req.Name,
 		Day:     req.Day,
 		Date:    req.Date,

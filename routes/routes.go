@@ -31,6 +31,7 @@ func New() *echo.Echo {
 	// User Credential
 	e.POST("/user/register", presenter.UserPresentation.CreateUserHandler)
 	e.POST("/user/login", presenter.UserPresentation.LoginUserHandler)
+	e.POST("/user/login/admin", presenter.UserPresentation.LoginAdminHandler)
 	jwt.GET("/user", presenter.UserPresentation.GetAllUserHandler)
 	jwt.GET("/user/:id", presenter.UserPresentation.GetUserById)
 	e.PUT("/user/:id", presenter.UserPresentation.UpdateAccountHandler)

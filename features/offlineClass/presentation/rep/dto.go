@@ -3,6 +3,7 @@ package rep
 import "capstone/backend/features/offlineClass"
 
 type OfflineClassCore struct {
+	ID       int    `json:"id"`
 	Name     string `json:"name"`
 	Day      string `json:"day"`
 	Date     string `json:"date"`
@@ -14,6 +15,7 @@ type OfflineClassCore struct {
 
 func ToCore(req offlineClass.OfflineClassCore) OfflineClassCore {
 	return OfflineClassCore{
+		ID:       req.ID,
 		Name:     req.Name,
 		Day:      req.Day,
 		Date:     req.Date,

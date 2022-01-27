@@ -106,6 +106,21 @@ func (usrHandler *UserHandler) LoginUserHandler(e echo.Context) error {
 		"data":    rep.ToUserLoginResponse(data),
 	})
 }
+func (usrHandler *UserHandler) LoginAdminHandler(e echo.Context) error {
+	AccountAuth := req.UserAuth{}
+	e.Bind(&AccountAuth)
+	data, err := usrHandler.userBussiness.LoginAdmin(AccountAuth.ToUserAuth())
+	if err != nil {
+		return e.JSON(http.StatusForbidden, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+
+	return e.JSON(http.StatusOK, map[string]interface{}{
+		"message": "Success",
+		"data":    rep.ToUserLoginResponse(data),
+	})
+}
 
 func (usrHandler *UserHandler) UpdateAccountHandler(e echo.Context) error {
 	id, err := strconv.Atoi(e.Param("id"))
@@ -127,4 +142,3 @@ func (usrHandler *UserHandler) UpdateAccountHandler(e echo.Context) error {
 		"data":    rep.ToUserCore(data),
 	})
 }
-

@@ -22,6 +22,7 @@ type Bussiness interface {
 	CreateUser(data User) (err error)
 	EditUser(id int) (usr User, err error)
 	LoginUser(user User) (usr User, err error)
+	LoginAdmin(admin User) (usr User, err error)
 }
 
 type Data interface {
@@ -30,4 +31,5 @@ type Data interface {
 	InsertUser(data User) (err error)
 	UpdateUser(id int) (usr User, err error)
 	CheckAccount(User) (user User, err error)
+	CheckAccountAdmin(User) (usr User, err error)
 }
