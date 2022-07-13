@@ -2,6 +2,7 @@ package data
 
 import (
 	"capstone/backend/features/bookingOnline"
+	"fmt"
 
 	"gorm.io/gorm"
 )
@@ -18,20 +19,20 @@ func NewBookingOnlineRepository(conn *gorm.DB) bookingOnline.Data {
 
 func (book *mysqlbookingOnlineClassRepo) SelectAllBookingOnline(bookingOnline.OnlineClassUser) (list []bookingOnline.OnlineClassUser, err error) {
 	var record []OnlineClassUser
-	err = book.Conn.Find(&record).Error
+	err = book.Conn.Joins("JOIN online_class_cores ON online_class_cores.id = online_class_users.class_id JOIN users ON users.id = online_class_users.user_id").Find(&record).Error
 
 	if err != nil {
 		return nil, err
 	}
-	return TobookingOnlineCoreList(record), nil
+	fmt.Println(record, "harusnya masuk dari data", err, "ini kalau ada error data")
+	fmt.Println(ToBookingCoreList(record), "INI DATA BOOKING CORE LIST RECORD")
+	return ToBookingCoreList(record), nil
 }
-func (book *mysqlbookingOnlineClassRepo) InsertMemberBookingOnline(userID int, classID int) (err error) {
-	var bookingOnline = OnlineClassUser{}
-	bookingOnline.UserID = userID
-	bookingOnline.ClassID = classID
+func (book *mysqlbookingOnlineClassRepo) InsertMemberBookingOnline(data bookingOnline.OnlineClassUser) (err error) {
 	// convData := TobookingOnlineCore(bookingOnline)
+	convData := toBookingOnline(data)
 
-	if err := book.Conn.Create(&bookingOnline).Error; err != nil {
+	if err := book.Conn.Create(&convData).Error; err != nil {
 		return err
 	}
 	return nil

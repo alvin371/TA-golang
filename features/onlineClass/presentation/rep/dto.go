@@ -1,26 +1,33 @@
 package rep
 
-import "capstone/backend/features/onlineClass"
+import (
+	"capstone/backend/features/onlineClass"
+	"time"
+)
 
 type OnlineClassCore struct {
-	Name    string `json:"name"`
-	Day     string `json:"day"`
-	Date    string `json:"date"`
-	Link    string `json:"link"`
-	Time    string `json:"time"`
-	Trainer string `json:"trainer"`
-	Image   string `json:"image"`
+	ID         int       `json:"id"`
+	Name       string    `json:"name"`
+	Capacity   int       `json:"capacity"`
+	ShortDesc  string    `json:"short_desc"`
+	Desc       string    `json:"desc"`
+	MonthlyFee int       `json:"monthly_fee"`
+	Image      string    `json:"image"`
+	CreatedAt  time.Time `json:"created_at"`
+	UpdatedAt  time.Time `json:"updated_at"`
 }
 
 func ToCore(req onlineClass.OnlineClassCore) OnlineClassCore {
 	return OnlineClassCore{
-		Name:    req.Name,
-		Day:     req.Day,
-		Date:    req.Date,
-		Link:    req.Link,
-		Time:    req.Time,
-		Trainer: req.Trainer,
-		Image:   req.Image,
+		ID:         req.ID,
+		Name:       req.Name,
+		Capacity:   req.Capacity,
+		ShortDesc:  req.ShortDesc,
+		Desc:       req.Desc,
+		MonthlyFee: req.MonthlyFee,
+		Image:      req.Image,
+		CreatedAt:  req.CreatedAt,
+		UpdatedAt:  req.UpdatedAt,
 	}
 }
 

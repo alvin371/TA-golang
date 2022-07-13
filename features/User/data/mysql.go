@@ -72,9 +72,32 @@ func (ud *UserData) CheckAccount(data user.User) (user.User, error) {
 
 	return toUserCore(userAuth), nil
 }
+func (ud *UserData) CheckAccountAdmin(data user.User) (user.User, error) {
+	var userAuth User
+	err := ud.DB.Where("username = ?", data.Username).First(&userAuth).Error
+	// Eliminate null data
+	if userAuth.Username == "" && userAuth.ID == 0 {
+		return user.User{}, errors.New("user not found")
+	}
+	if userAuth.Role != "admin" && userAuth.Role == "" {
+		return user.User{}, errors.New("Cannot login with this user role")
+	}
+	if err := bcrypt.CompareHashAndPassword([]byte(userAuth.Password), []byte(data.Password)); err != nil {
+		log.Println(err)
+		return user.User{}, errors.New("Password doesnt match")
+	}
+	fmt.Println(err)
 
-func (ud *UserData) UpdateUser(id int) (user.User, error) {
-	var users User
+	// Validate with DB
+	if err != nil {
+		return user.User{}, err
+	}
+
+	return toUserCore(userAuth), nil
+}
+
+func (ud *UserData) UpdateUser(id int, data user.User) (user.User, error) {
+	users := fromCore(data)
 	fmt.Println("Isi single Users : ", users)
 	fmt.Println("id : ", id)
 	err := ud.DB.Model(&users).Where("id=?", id).Updates(&users).Error

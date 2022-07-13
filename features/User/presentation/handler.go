@@ -106,8 +106,24 @@ func (usrHandler *UserHandler) LoginUserHandler(e echo.Context) error {
 		"data":    rep.ToUserLoginResponse(data),
 	})
 }
+func (usrHandler *UserHandler) LoginAdminHandler(e echo.Context) error {
+	AccountAuth := req.UserAuth{}
+	e.Bind(&AccountAuth)
+	data, err := usrHandler.userBussiness.LoginAdmin(AccountAuth.ToUserAuth())
+	if err != nil {
+		return e.JSON(http.StatusForbidden, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+
+	return e.JSON(http.StatusOK, map[string]interface{}{
+		"message": "Success",
+		"data":    rep.ToUserLoginResponse(data),
+	})
+}
 
 func (usrHandler *UserHandler) UpdateAccountHandler(e echo.Context) error {
+	newAccount := req.User{}
 	id, err := strconv.Atoi(e.Param("id"))
 	// fmt.Println("Test : ", id)
 	if err != nil {
@@ -115,16 +131,21 @@ func (usrHandler *UserHandler) UpdateAccountHandler(e echo.Context) error {
 			"message": err.Error(),
 		})
 	}
-
-	data, err := usrHandler.userBussiness.EditUser(id)
+	if err := e.Bind(&newAccount); err != nil {
+		return e.JSON(http.StatusBadRequest, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+	fmt.Println(newAccount)
+	data, err := usrHandler.userBussiness.EditUser(id, newAccount.ToUserCore())
 	if err != nil {
 		return e.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"message": err.Error(),
 		})
 	}
+	fmt.Println(data)
 	return e.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Success",
 		"data":    rep.ToUserCore(data),
 	})
 }
-

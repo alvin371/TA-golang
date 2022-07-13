@@ -40,8 +40,8 @@ func (ub *UserBussiness) CreateUser(data user.User) (err error) {
 	}
 	return nil
 }
-func (ub *UserBussiness) EditUser(id int) (usr user.User, err error) {
-	userData, err := ub.userData.UpdateUser(id)
+func (ub *UserBussiness) EditUser(id int, data user.User) (usr user.User, err error) {
+	userData, err := ub.userData.UpdateUser(id, data)
 
 	if err != nil {
 		return user.User{}, err
@@ -53,7 +53,19 @@ func (ub *UserBussiness) LoginUser(user user.User) (usr user.User, err error) {
 	if err != nil {
 		return user, err
 	}
-	accountData.Token, err = middlewares.CreateToken(user.ID, user.Username)
+	accountData.Token, err = middlewares.CreateToken(user.ID, user.Username, user.Role)
+	if err != nil {
+		return user, err
+	}
+	return accountData, nil
+}
+
+func (ub *UserBussiness) LoginAdmin(user user.User) (usr user.User, err error) {
+	accountData, err := ub.userData.CheckAccountAdmin(user)
+	if err != nil {
+		return user, err
+	}
+	accountData.Token, err = middlewares.CreateToken(user.ID, user.Username, user.Role)
 	if err != nil {
 		return user, err
 	}

@@ -8,11 +8,12 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func CreateToken(UserID uint, name string) (string, error) {
+func CreateToken(UserID uint, name string, role string) (string, error) {
 	claims := jwt.MapClaims{}
 
 	claims["userId"] = UserID
 	claims["name"] = name
+	claims["role"] = role
 	claims["exp"] = time.Now().Add(time.Hour * 6).Unix()
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

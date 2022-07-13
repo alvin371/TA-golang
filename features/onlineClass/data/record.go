@@ -6,45 +6,42 @@ import (
 )
 
 type OnlineClassCore struct {
-	ID        int
-	Name      string `json:"name"`
-	Day       string `json:"day"`
-	Date      string `json:"date"`
-	Link      string `json:"link"`
-	Time      string `json:"time"`
-	Trainer   string `json:"trainer"`
-	Image     string `json:"image"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ID         int
+	Name       string `json:"name"`
+	Capacity   int    `json:"capacity"`
+	ShortDesc  string `json:"short_desc"`
+	Desc       string `json:"desc"`
+	MonthlyFee int    `json:"monthly_fee"`
+	Image      string `json:"image"`
+	CreatedAt  time.Time
+	UpdatedAt  time.Time
 }
 
 func toClassRecord(oc onlineClass.OnlineClassCore) OnlineClassCore {
 	return OnlineClassCore{
-		ID:        oc.ID,
-		Name:      oc.Name,
-		Day:       oc.Day,
-		Date:      oc.Date,
-		Link:      oc.Link,
-		Time:      oc.Time,
-		Trainer:   oc.Trainer,
-		Image:     oc.Image,
-		CreatedAt: oc.CreatedAt,
-		UpdatedAt: oc.UpdatedAt,
+		ID:         oc.ID,
+		Name:       oc.Name,
+		Capacity:   oc.Capacity,
+		ShortDesc:  oc.ShortDesc,
+		Desc:       oc.Desc,
+		MonthlyFee: oc.MonthlyFee,
+		Image:      oc.Image,
+		CreatedAt:  oc.CreatedAt,
+		UpdatedAt:  oc.UpdatedAt,
 	}
 }
 
 func toClassCore(oc OnlineClassCore) onlineClass.OnlineClassCore {
 	return onlineClass.OnlineClassCore{
-		ID:        oc.ID,
-		Name:      oc.Name,
-		Day:       oc.Day,
-		Date:      oc.Date,
-		Link:      oc.Link,
-		Time:      oc.Time,
-		Trainer:   oc.Trainer,
-		Image:     oc.Image,
-		CreatedAt: oc.CreatedAt,
-		UpdatedAt: oc.UpdatedAt,
+		ID:         oc.ID,
+		Name:       oc.Name,
+		Capacity:   oc.Capacity,
+		ShortDesc:  oc.ShortDesc,
+		Desc:       oc.Desc,
+		MonthlyFee: oc.MonthlyFee,
+		Image:      oc.Image,
+		CreatedAt:  oc.CreatedAt,
+		UpdatedAt:  oc.UpdatedAt,
 	}
 }
 

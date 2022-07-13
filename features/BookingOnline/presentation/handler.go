@@ -20,7 +20,7 @@ func NewBookingOnlineHandler(bookingOfflineBussiness bookingOnline.Bussiness) Bo
 
 func (boh *BookingOnlineHandler) GetListBookingOnline(e echo.Context) error {
 	data, err := boh.bookingOfflineBussiness.GetListBookingOnline(bookingOnline.OnlineClassUser{})
-
+	fmt.Println(data, "ini data ya")
 	if err != nil {
 		return e.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"message": err.Error(),
@@ -35,7 +35,7 @@ func (boh *BookingOnlineHandler) GetListBookingOnline(e echo.Context) error {
 
 func (boh *BookingOnlineHandler) InsertMemberBookingOnline(e echo.Context) error {
 	newBookingOnline := presentation_request.OnlineClassUser{}
-
+	fmt.Println("testing ngarah kesini")
 	if err := e.Bind(&newBookingOnline); err != nil {
 		return e.JSON(http.StatusBadRequest, map[string]interface{}{
 			"message": err.Error(),
@@ -43,7 +43,7 @@ func (boh *BookingOnlineHandler) InsertMemberBookingOnline(e echo.Context) error
 	}
 	fmt.Println("testing", newBookingOnline)
 
-	if err := boh.bookingOfflineBussiness.MemberBookingOnline(newBookingOnline.ClassID, newBookingOnline.UserID); err != nil {
+	if err := boh.bookingOfflineBussiness.MemberBookingOnline(newBookingOnline.ToCore()); err != nil {
 		return e.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"message": err.Error(),
 		})

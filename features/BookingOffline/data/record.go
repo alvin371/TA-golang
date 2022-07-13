@@ -16,14 +16,13 @@ type OfflineClassUser struct {
 }
 
 type OfflineClassCore struct {
-	ID       int
-	Name     string
-	Day      string
-	Date     string
-	Location string
-	Time     string
-	Trainer  string
-	Image    string
+	ID         int
+	Name       string
+	Capacity   int
+	ShortDesc  string
+	Desc       string
+	MonthlyFee int
+	Image      string
 }
 type User struct {
 	ID           uint
@@ -53,22 +52,21 @@ func ToUserCore(data User) bookingOffline.User {
 
 func ToOfflineClassCore(core OfflineClassCore) bookingOffline.OfflineClassCore {
 	return bookingOffline.OfflineClassCore{
-		ID:       core.ID,
-		Name:     core.Name,
-		Day:      core.Day,
-		Date:     core.Date,
-		Location: core.Location,
-		Time:     core.Time,
-		Trainer:  core.Trainer,
-		Image:    core.Image,
+		ID:         core.ID,
+		Name:       core.Name,
+		Capacity:   core.Capacity,
+		ShortDesc:  core.ShortDesc,
+		Desc:       core.Desc,
+		MonthlyFee: core.MonthlyFee,
+		Image:      core.Image,
 	}
 }
 
 func ToBookingOfflineCore(core OfflineClassUser) bookingOffline.OfflineClassUser {
 	return bookingOffline.OfflineClassUser{
 		ID:        core.ID,
-		ClassID:   core.Class.ID,
-		UserID:    int(core.User.ID),
+		ClassID:   core.ClassID,
+		UserID:    int(core.UserID),
 		CreatedAt: core.CreatedAt,
 		UpdatedAt: core.UpdatedAt,
 		Class:     ToOfflineClassCore(core.Class),

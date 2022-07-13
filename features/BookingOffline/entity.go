@@ -1,11 +1,17 @@
 package bookingOffline
 
-import "time"
+import (
+	"time"
+)
 
 type OfflineClassUser struct {
 	ID        int
 	ClassID   int `gorm:"primaryKey"`
 	UserID    int `gorm:"primaryKey"`
+	Session   string
+	Date      string
+	Email     string
+	Phone     string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	Class     OfflineClassCore
@@ -13,16 +19,15 @@ type OfflineClassUser struct {
 }
 
 type OfflineClassCore struct {
-	ID        int
-	Name      string `json:"name"`
-	Day       string `json:"day"`
-	Date      string `json:"date"`
-	Location  string `json:"location"`
-	Time      string `json:"time"`
-	Trainer   string `json:"trainer"`
-	Image     string `json:"image"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ID         int
+	Name       string `json:"name"`
+	Capacity   int    `json:"capacity"`
+	ShortDesc  string `json:"short_desc"`
+	Desc       string `json:"desc"`
+	MonthlyFee int    `json:"monthly_fee"`
+	Image      string `json:"image"`
+	CreatedAt  time.Time
+	UpdatedAt  time.Time
 }
 type User struct {
 	ID           uint
@@ -40,10 +45,12 @@ type User struct {
 
 type Bussiness interface {
 	GetListBookingOffline(OfflineClassUser) (list []OfflineClassUser, err error)
+	GetBookingByID(id int) (OfflineClassUser, error)
 	MemberBookingOffline(userID int, classID int) (err error)
 }
 
 type Data interface {
 	SelectAllBookingOffline(OfflineClassUser) (list []OfflineClassUser, err error)
+	SelectBookingByID(id int) (OfflineClassUser, error)
 	InsertMemberBookingOffline(userID int, classID int) (err error)
 }

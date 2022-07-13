@@ -14,7 +14,7 @@ func New() *echo.Echo {
 	e := echo.New()
 	jwt := e.Group("")
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"http://localhost:3000"},
+		AllowOrigins: []string{"*"},
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderAuthorization, echo.HeaderContentType, echo.HeaderAccept},
 	}))
 	jwt.Use(middleware.JWT([]byte(config.JWT_KEY)))
@@ -31,6 +31,7 @@ func New() *echo.Echo {
 	// User Credential
 	e.POST("/user/register", presenter.UserPresentation.CreateUserHandler)
 	e.POST("/user/login", presenter.UserPresentation.LoginUserHandler)
+	e.POST("/user/login/admin", presenter.UserPresentation.LoginAdminHandler)
 	jwt.GET("/user", presenter.UserPresentation.GetAllUserHandler)
 	jwt.GET("/user/:id", presenter.UserPresentation.GetUserById)
 	e.PUT("/user/:id", presenter.UserPresentation.UpdateAccountHandler)
@@ -52,6 +53,7 @@ func New() *echo.Echo {
 	// Booking Offline
 	jwt.GET("/booking-offline", presenter.BookingOfflinePresentation.GetListBookingOffline)
 	e.POST("/booking-offline/create", presenter.BookingOfflinePresentation.InsertMemberBookingOffline)
+	jwt.GET("/booking-offline/:id", presenter.BookingOfflinePresentation.SelectBookingByClassID)
 
 	// Booking Online
 

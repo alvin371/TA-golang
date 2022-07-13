@@ -6,45 +6,42 @@ import (
 )
 
 type OfflineClassCore struct {
-	ID        int
-	Name      string `json:"name"`
-	Day       string `json:"day"`
-	Date      string `json:"date"`
-	Location  string `json:"location"`
-	Time      string `json:"time"`
-	Trainer   string `json:"trainer"`
-	Image     string `json:"image"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ID         int       `json:"id"`
+	Name       string    `json:"name"`
+	Capacity   int       `json:"capacity"`
+	ShortDesc  string    `json:"short_desc"`
+	Desc       string    `json:"desc"`
+	MonthlyFee int       `json:"monthly_fee"`
+	Image      string    `json:"image"`
+	CreatedAt  time.Time `json:"created_at"`
+	UpdatedAt  time.Time `json:"updated_at"`
 }
 
 func toClassRecord(oc offlineClass.OfflineClassCore) OfflineClassCore {
 	return OfflineClassCore{
-		ID:        oc.ID,
-		Name:      oc.Name,
-		Day:       oc.Day,
-		Date:      oc.Date,
-		Location:  oc.Location,
-		Time:      oc.Time,
-		Trainer:   oc.Trainer,
-		Image:     oc.Image,
-		CreatedAt: oc.CreatedAt,
-		UpdatedAt: oc.UpdatedAt,
+		ID:         oc.ID,
+		Name:       oc.Name,
+		Capacity:   oc.Capacity,
+		ShortDesc:  oc.ShortDesc,
+		Desc:       oc.Desc,
+		MonthlyFee: oc.MonthlyFee,
+		Image:      oc.Image,
+		CreatedAt:  oc.CreatedAt,
+		UpdatedAt:  oc.UpdatedAt,
 	}
 }
 
 func toClassCore(oc OfflineClassCore) offlineClass.OfflineClassCore {
 	return offlineClass.OfflineClassCore{
-		ID:        oc.ID,
-		Name:      oc.Name,
-		Day:       oc.Day,
-		Date:      oc.Date,
-		Location:  oc.Location,
-		Time:      oc.Time,
-		Trainer:   oc.Trainer,
-		Image:     oc.Image,
-		CreatedAt: oc.CreatedAt,
-		UpdatedAt: oc.UpdatedAt,
+		ID:         oc.ID,
+		Name:       oc.Name,
+		Capacity:   oc.Capacity,
+		ShortDesc:  oc.ShortDesc,
+		Desc:       oc.Desc,
+		MonthlyFee: oc.MonthlyFee,
+		Image:      oc.Image,
+		CreatedAt:  oc.CreatedAt,
+		UpdatedAt:  oc.UpdatedAt,
 	}
 }
 
