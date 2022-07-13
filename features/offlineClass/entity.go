@@ -3,16 +3,15 @@ package offlineClass
 import "time"
 
 type OfflineClassCore struct {
-	ID        int
-	Name      string `json:"name"`
-	Day       string `json:"day"`
-	Date      string `json:"date"`
-	Location  string `json:"location"`
-	Time      string `json:"time"`
-	Trainer   string `json:"trainer"`
-	Image     string `json:"image"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ID         int
+	Name       string `json:"name"`
+	Capacity   int    `json:"capacity"`
+	ShortDesc  string `json:"short_desc"`
+	Desc       string `json:"desc"`
+	MonthlyFee int    `json:"monthly_fee"`
+	Image      string `json:"image"`
+	CreatedAt  time.Time
+	UpdatedAt  time.Time
 }
 
 type Bussiness interface {

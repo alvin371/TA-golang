@@ -2,6 +2,7 @@ package bussiness
 
 import (
 	"capstone/backend/features/bookingOffline"
+	"fmt"
 )
 
 type bookingOfflineUseCase struct {
@@ -16,6 +17,7 @@ func NewBussinessBookingOfflineClass(bOCData bookingOffline.Data) bookingOffline
 
 func (booku *bookingOfflineUseCase) GetListBookingOffline(data bookingOffline.OfflineClassUser) (list []bookingOffline.OfflineClassUser, err error) {
 	offlineClass, err := booku.bData.SelectAllBookingOffline(data)
+	fmt.Println("Bussiness data", offlineClass)
 	if err != nil {
 		return nil, err
 	}

@@ -9,6 +9,8 @@ type OnlineClassUser struct {
 	ID        int
 	ClassID   int
 	UserID    int
+	Email     string
+	Phone     string
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	Class     OnlineClassCore
@@ -16,14 +18,13 @@ type OnlineClassUser struct {
 }
 
 type OnlineClassCore struct {
-	ID      int
-	Name    string
-	Day     string
-	Date    string
-	Link    string
-	Time    string
-	Trainer string
-	Image   string
+	ID         int
+	Name       string
+	Capacity   int
+	ShortDesc  string
+	Desc       string
+	MonthlyFee int
+	Image      string
 }
 type User struct {
 	ID           uint
@@ -53,18 +54,17 @@ func ToUserCore(data User) bookingOnline.User {
 
 func ToOnlineClassCore(core OnlineClassCore) bookingOnline.OnlineClassCore {
 	return bookingOnline.OnlineClassCore{
-		ID:      core.ID,
-		Name:    core.Name,
-		Day:     core.Day,
-		Date:    core.Date,
-		Link:    core.Link,
-		Time:    core.Time,
-		Trainer: core.Trainer,
-		Image:   core.Image,
+		ID:         core.ID,
+		Name:       core.Name,
+		Capacity:   core.Capacity,
+		ShortDesc:  core.ShortDesc,
+		Desc:       core.Desc,
+		MonthlyFee: core.MonthlyFee,
+		Image:      core.Image,
 	}
 }
 
-func TobookingOnlineCoe(core OnlineClassUser) bookingOnline.OnlineClassUser {
+func TobookingOnlineCore(core OnlineClassUser) bookingOnline.OnlineClassUser {
 	return bookingOnline.OnlineClassUser{
 		ID:        core.ID,
 		ClassID:   core.Class.ID,
@@ -76,11 +76,45 @@ func TobookingOnlineCoe(core OnlineClassUser) bookingOnline.OnlineClassUser {
 	}
 }
 
+func toBookingOnline(oc bookingOnline.OnlineClassUser) OnlineClassUser {
+	return OnlineClassUser{
+		ID:        oc.ID,
+		ClassID:   oc.ClassID,
+		UserID:    oc.UserID,
+		Email:     oc.Email,
+		Phone:     oc.Phone,
+		CreatedAt: oc.CreatedAt,
+		UpdatedAt: oc.UpdatedAt,
+	}
+}
+
 func TobookingOnlineCoreList(oc []OnlineClassUser) []bookingOnline.OnlineClassUser {
 	conv := []bookingOnline.OnlineClassUser{}
 
 	for _, ocList := range oc {
-		conv = append(conv, TobookingOnlineCoe(ocList))
+		conv = append(conv, TobookingOnlineCore(ocList))
 	}
 	return conv
+}
+
+func ToBookingCore(core OnlineClassUser) bookingOnline.OnlineClassUser {
+	return bookingOnline.OnlineClassUser{
+		ID:        core.ID,
+		ClassID:   core.Class.ID,
+		UserID:    int(core.User.ID),
+		Email:     core.Email,
+		Phone:     core.Phone,
+		CreatedAt: core.CreatedAt,
+		UpdatedAt: core.UpdatedAt,
+		Class:     ToOnlineClassCore(core.Class),
+		User:      ToUserCore(core.User),
+	}
+}
+
+func ToBookingCoreList(core []OnlineClassUser) []bookingOnline.OnlineClassUser {
+	convCore := []bookingOnline.OnlineClassUser{}
+	for _, core := range core {
+		convCore = append(convCore, ToBookingCore(core))
+	}
+	return convCore
 }

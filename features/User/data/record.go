@@ -20,10 +20,13 @@ type User struct {
 
 func toUserCore(usr User) user.User {
 	return user.User{
-		ID:       usr.ID,
-		Username: usr.Username,
-		Password: usr.Password,
-		Email:    usr.Email,
+		ID:           usr.ID,
+		Username:     usr.Username,
+		Email:        usr.Email,
+		Role:         usr.Role,
+		Avatar:       usr.Avatar,
+		Goals:        usr.Goals,
+		MemberStatus: usr.MemberStatus,
 	}
 }
 

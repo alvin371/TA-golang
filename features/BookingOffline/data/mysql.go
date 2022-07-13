@@ -19,8 +19,10 @@ func NewBookingOfflineRepository(conn *gorm.DB) bookingOffline.Data {
 
 func (book *mysqlBookingOfflineClassRepo) SelectAllBookingOffline(bookingOffline.OfflineClassUser) (list []bookingOffline.OfflineClassUser, err error) {
 	var record []OfflineClassUser
-	err = book.Conn.Find(&record).Error
-
+	book.Conn.Find(&record)
+	fmt.Println("this is record", record)
+	fmt.Println("this is after ", ToBookingOfflineCoreList(record))
+	// fmt.Println("this is finding data", err)
 	if err != nil {
 		return nil, err
 	}

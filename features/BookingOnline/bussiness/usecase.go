@@ -2,6 +2,7 @@ package bussiness
 
 import (
 	"capstone/backend/features/bookingOnline"
+	"fmt"
 )
 
 type bookingOnlineUseCase struct {
@@ -16,14 +17,15 @@ func NewBussinessBookingOnlineClass(bOCData bookingOnline.Data) bookingOnline.Bu
 
 func (booku *bookingOnlineUseCase) GetListBookingOnline(data bookingOnline.OnlineClassUser) (list []bookingOnline.OnlineClassUser, err error) {
 	offlineClass, err := booku.bData.SelectAllBookingOnline(data)
+	fmt.Println(offlineClass, "ini datanya online class", err, "kalau ada error", data, "APA SIH ANJING ISI DATANYA")
 	if err != nil {
 		return nil, err
 	}
 	return offlineClass, nil
 }
 
-func (booku *bookingOnlineUseCase) MemberBookingOnline(userID int, classID int) (err error) {
-	if err := booku.bData.InsertMemberBookingOnline(userID, classID); err != nil {
+func (booku *bookingOnlineUseCase) MemberBookingOnline(data bookingOnline.OnlineClassUser) (err error) {
+	if err := booku.bData.InsertMemberBookingOnline(data); err != nil {
 		return err
 	}
 	return nil

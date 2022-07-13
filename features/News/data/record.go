@@ -8,11 +8,11 @@ import (
 
 type News struct {
 	gorm.Model
-	Title       string `json: "title"`
-	Description string `json: "description"`
-	Content     string `json: "content"`
-	CreatorName string `json: "creator"`
-	Picture     string `json: "picture"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Content     string `json:"content"`
+	CreatorName string `json:"creator"`
+	Picture     string `json:"picture"`
 }
 
 func toNewsRecord(news news.NewsCore) News {

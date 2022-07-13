@@ -8,7 +8,6 @@ type User struct {
 	Username     string `json:"username"`
 	Role         string `json:"role"`
 	Email        string `json:"email"`
-	Password     string `json:"password"`
 	Token        string `json:"token"`
 	Avatar       string `json:"avatar"`
 	Goals        string `json:"goals"`
@@ -21,7 +20,6 @@ type UserLogin struct {
 	Token        string `json:"token"`
 	Role         string `json:"role"`
 	Email        string `json:"email"`
-	Password     string `json:"password"`
 	Avatar       string `json:"avatar"`
 	Goals        string `json:"goals"`
 	MemberStatus string `json:"member_status"`
@@ -29,11 +27,13 @@ type UserLogin struct {
 
 func ToUserCore(req user.User) User {
 	return User{
-		Username: req.Username,
-		Role:     req.Role,
-		Email:    req.Email,
-		Password: req.Password,
-		Token:    req.Token,
+		Username:     req.Username,
+		Role:         req.Role,
+		Email:        req.Email,
+		Token:        req.Token,
+		Avatar:       req.Avatar,
+		Goals:        req.Goals,
+		MemberStatus: req.MemberStatus,
 	}
 }
 
@@ -47,8 +47,12 @@ func ToUserCoreSlice(core []user.User) []User {
 
 func ToUserLoginResponse(user user.User) UserLogin {
 	return UserLogin{
-		ID:       user.ID,
-		Username: user.Username,
-		Token:    user.Token,
+		ID:           user.ID,
+		Username:     user.Username,
+		Token:        user.Token,
+		Email:        user.Email,
+		Avatar:       user.Avatar,
+		Goals:        user.Goals,
+		MemberStatus: user.MemberStatus,
 	}
 }

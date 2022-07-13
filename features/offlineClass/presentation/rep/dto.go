@@ -1,28 +1,33 @@
 package rep
 
-import "capstone/backend/features/offlineClass"
+import (
+	"capstone/backend/features/offlineClass"
+	"time"
+)
 
 type OfflineClassCore struct {
-	ID       int    `json:"id"`
-	Name     string `json:"name"`
-	Day      string `json:"day"`
-	Date     string `json:"date"`
-	Location string `json:"location"`
-	Time     string `json:"time"`
-	Trainer  string `json:"trainer"`
-	Image    string `json:"image"`
+	ID         int       `json:"id"`
+	Name       string    `json:"name"`
+	Capacity   int       `json:"capacity"`
+	ShortDesc  string    `json:"short_desc"`
+	Desc       string    `json:"desc"`
+	MonthlyFee int       `json:"monthly_fee"`
+	Image      string    `json:"image"`
+	CreatedAt  time.Time `json:"created_at"`
+	UpdatedAt  time.Time `json:"updated_at"`
 }
 
 func ToCore(req offlineClass.OfflineClassCore) OfflineClassCore {
 	return OfflineClassCore{
-		ID:       req.ID,
-		Name:     req.Name,
-		Day:      req.Day,
-		Date:     req.Date,
-		Location: req.Location,
-		Time:     req.Time,
-		Trainer:  req.Trainer,
-		Image:    req.Image,
+		ID:         req.ID,
+		Name:       req.Name,
+		Capacity:   req.Capacity,
+		ShortDesc:  req.ShortDesc,
+		Desc:       req.Desc,
+		MonthlyFee: req.MonthlyFee,
+		Image:      req.Image,
+		CreatedAt:  req.CreatedAt,
+		UpdatedAt:  req.UpdatedAt,
 	}
 }
 

@@ -7,23 +7,26 @@ import (
 
 type OnlineClassUser struct {
 	ID        int
-	ClassID   int `json:"class_id"`
-	UserID    int `json:"user_id"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ClassID   int       `json:"class_id"`
+	UserID    int       `json:"user_id"`
+	Email     string    `json:"email"`
+	Phone     string    `json:"phone"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 	Class     OnlineClassResponse
 	User      UserResponse
 }
 
 type OnlineClassResponse struct {
-	ID      int
-	Name    string `json:"name"`
-	Day     string `json:"day"`
-	Date    string `json:"date"`
-	Link    string `json:"link"`
-	Time    string `json:"time"`
-	Trainer string `json:"trainer"`
-	Image   string `json:"image"`
+	ID         int
+	Name       string    `json:"name"`
+	Capacity   int       `json:"capacity"`
+	ShortDesc  string    `json:"short_desc"`
+	Desc       string    `json:"desc"`
+	MonthlyFee int       `json:"monthly_fee"`
+	Image      string    `json:"image"`
+	CreatedAt  time.Time `json:"created_at"`
+	UpdatedAt  time.Time `json:"updated_at"`
 }
 type UserResponse struct {
 	ID           uint
@@ -47,16 +50,17 @@ func ToUserResponse(data bookingOnline.User) UserResponse {
 	}
 }
 
-func ToOfflineClassResponse(core bookingOnline.OnlineClassCore) OnlineClassResponse {
+func ToOnlineClassResponse(core bookingOnline.OnlineClassCore) OnlineClassResponse {
 	return OnlineClassResponse{
-		ID:      core.ID,
-		Name:    core.Name,
-		Day:     core.Day,
-		Date:    core.Date,
-		Link:    core.Link,
-		Time:    core.Time,
-		Trainer: core.Trainer,
-		Image:   core.Image,
+		ID:         core.ID,
+		Name:       core.Name,
+		Capacity:   core.Capacity,
+		ShortDesc:  core.ShortDesc,
+		Desc:       core.Desc,
+		MonthlyFee: core.MonthlyFee,
+		Image:      core.Image,
+		CreatedAt:  core.CreatedAt,
+		UpdatedAt:  core.UpdatedAt,
 	}
 }
 func ToBookingOnlineCore(core bookingOnline.OnlineClassUser) OnlineClassUser {
@@ -64,9 +68,11 @@ func ToBookingOnlineCore(core bookingOnline.OnlineClassUser) OnlineClassUser {
 		ID:        core.ID,
 		ClassID:   core.Class.ID,
 		UserID:    int(core.User.ID),
+		Email:     core.Email,
+		Phone:     core.Phone,
 		CreatedAt: core.CreatedAt,
 		UpdatedAt: core.UpdatedAt,
-		Class:     ToOfflineClassResponse(core.Class),
+		Class:     ToOnlineClassResponse(core.Class),
 		User:      ToUserResponse(core.User),
 	}
 }

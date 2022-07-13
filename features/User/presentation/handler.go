@@ -143,6 +143,7 @@ func (usrHandler *UserHandler) UpdateAccountHandler(e echo.Context) error {
 			"message": err.Error(),
 		})
 	}
+	fmt.Println(data)
 	return e.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Success",
 		"data":    rep.ToUserCore(data),

@@ -7,23 +7,27 @@ import (
 
 type OfflineClassUser struct {
 	ID        int
-	ClassID   int `json:"class_id"`
-	UserID    int `json:"user_id"`
+	ClassID   int    `json:"class_id"`
+	UserID    int    `json:"user_id"`
+	Session   string `json:"session"`
+	Date      string `json:"date"`
+	Email     string `json:"email"`
+	Phone     string `json:"phone"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 	Class     OfflineClassResponse
 	User      UserResponse
 }
-
 type OfflineClassResponse struct {
-	ID       int
-	Name     string `json:"name"`
-	Day      string `json:"day"`
-	Date     string `json:"date"`
-	Location string `json:"location"`
-	Time     string `json:"time"`
-	Trainer  string `json:"trainer"`
-	Image    string `json:"image"`
+	ID         int
+	Name       string    `json:"name"`
+	Capacity   int       `json:"capacity"`
+	ShortDesc  string    `json:"short_desc"`
+	Desc       string    `json:"desc"`
+	MonthlyFee int       `json:"monthly_fee"`
+	Image      string    `json:"image"`
+	CreatedAt  time.Time `json:"created_at"`
+	UpdatedAt  time.Time `json:"updated_at"`
 }
 type UserResponse struct {
 	ID           uint
@@ -49,21 +53,20 @@ func ToUserResponse(data bookingOffline.User) UserResponse {
 
 func ToOfflineClassResponse(core bookingOffline.OfflineClassCore) OfflineClassResponse {
 	return OfflineClassResponse{
-		ID:       core.ID,
-		Name:     core.Name,
-		Day:      core.Day,
-		Date:     core.Date,
-		Location: core.Location,
-		Time:     core.Time,
-		Trainer:  core.Trainer,
-		Image:    core.Image,
+		ID:         core.ID,
+		Name:       core.Name,
+		Capacity:   core.Capacity,
+		ShortDesc:  core.ShortDesc,
+		Desc:       core.Desc,
+		MonthlyFee: core.MonthlyFee,
+		Image:      core.Image,
 	}
 }
 func ToBookingOfflineCore(core bookingOffline.OfflineClassUser) OfflineClassUser {
 	return OfflineClassUser{
 		ID:        core.ID,
-		ClassID:   core.Class.ID,
-		UserID:    int(core.User.ID),
+		ClassID:   core.ClassID,
+		UserID:    int(core.UserID),
 		CreatedAt: core.CreatedAt,
 		UpdatedAt: core.UpdatedAt,
 		Class:     ToOfflineClassResponse(core.Class),

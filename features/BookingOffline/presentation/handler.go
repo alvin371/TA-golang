@@ -27,6 +27,7 @@ func (boh *BookingOfflineHandler) GetListBookingOffline(e echo.Context) error {
 			"message": err.Error(),
 		})
 	}
+	fmt.Println(data)
 
 	return e.JSON(http.StatusOK, map[string]interface{}{
 		"message": "success get List Booking Offline",
